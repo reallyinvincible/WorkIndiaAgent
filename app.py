@@ -39,7 +39,7 @@ class Task(db.Model):
     description = db.Column(db.String(1000), nullable=False)
     category = db.Column(db.String(100), default="general")
     time_created = db.Column(db.BigInteger, default=(time.time() * 1000))
-    created_by = db.Column(db.Integer, nullable=False, default="0")
+    created_by = db.Column(db.String(1000), nullable=False, default="0")
     due_by = db.Column(db.BigInteger, default=((time.time() * 1000) + (24 * 60 * 60 * 1000)))
 
     def __init__(self, title, description, category, created_by, due_by):
@@ -53,10 +53,6 @@ class Task(db.Model):
 class TaskSchema(ma.Schema):
     class Meta:
         fields = ('task_id', 'title', 'description', 'category', 'time_created', 'created_by', 'due_by')
-
-
-task_schema = TaskSchema()
-tasks_schema = TaskSchema(many=True)
 
 
 class Response:
